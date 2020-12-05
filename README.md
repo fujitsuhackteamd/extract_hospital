@@ -34,7 +34,7 @@ python conduct.py path maindata/hospitaldata.csv address_x 100 address_y 100 cho
 ~~~
 ### - path='default', address_x=200, address_y='default', choice_expert=耳鼻科, online_or_visit='default', choice_priority=混雑度の場合  
 ~~~
-python conduct.py address_x 200 choice_expert 耳鼻科 online_or_visit choice_priority 混雑度 
+python conduct.py address_x 200 choice_expert 耳鼻科 choice_priority 混雑度 
 ~~~
 
 ## 4. 出力されるファイルについて  
