@@ -25,7 +25,7 @@ conduct.py をコンソール上で動かすことで実行できます．実行
 #### 6. choice_priority (default: 混雑度)  
 患者が希望する選好条件です．入力は，[距離, 混雑度]のうち何れかにしてください．
 
-## 3.実行例
+## 3. 実行例
 基本的には，[引数の名称, その引数の値]をセットにしてコマンドラインに与えます．例えば address_x に50を入れたい場合は，address_x 50 と，連番引数として与えます．  
 もし，コマンドラインにて入力されていない引数があれば，代わりにdefault値が入力されます．  
 ### - path=maindata/data.csv, address_x=100, address_y=100, choice_expert=外科, online_or_visit=オンライン, choice_priority=距離の場合  
@@ -37,7 +37,7 @@ python conduct.py path maindata/hospitaldata.csv address_x 100 address_y 100 cho
 python conduct.py address_x 200 choice_expert 耳鼻科 online_or_visit choice_priority 混雑度 
 ~~~
 
-## 4.出力されるファイルについて  
+## 4. 出力されるファイルについて  
 1に記載の通り，取り出された病院データは 'maindata/nd_hospitaldata.csv' で出力されます．  
 また，online_or_visit の値に従って取り出される病院が異なります．
 ### online_or_visit=来院の場合  
