@@ -12,17 +12,17 @@ conduct.py をコンソール上で動かすことで実行できます．実行
 ## 2. 引数について  
 引数は以下の6つあります．  
 ### 引数リスト
-#### (1) path (deault: maindata/hospitaldata.csv)  
+#### 1. path (deault: maindata/hospitaldata.csv)  
 実行に必要な，全病院データが格納されているhosipitaldata.csvのパスです (ファイル形式は，秋元さんが作ってくださった形式と同様）．  
-#### (2) address_x (default: 0)  
+#### 2. address_x (default: 0)  
 患者の現在位置(経度)です．  
-#### (3) address_y (default: 0)  
+#### 3. address_y (default: 0)  
 患者の現在位置(緯度)です．  
-#### (4) choice_expert (default: 内科)  
+#### 4. choice_expert (default: 内科)  
 患者が希望する科です．入力は，[内科, 外科, 耳鼻科, 眼科]のうち何れかにしてください．  
-#### (5) online_or_visit (default: 来院)  
+#### 5. online_or_visit (default: 来院)  
 オンラインか，来院かの情報です．入力は，[来院, オンライン]のうち何れかにしてください．  
-#### (6) choice_priority (default: 混雑度)  
+#### 6. choice_priority (default: 混雑度)  
 患者が希望する選好条件です．入力は，[距離, 混雑度]のうち何れかにしてください．
 
 ## 3. 実行例
@@ -45,12 +45,3 @@ python conduct.py address_x 200 choice_expert 耳鼻科 online_or_visit choice_p
 ※さらに choice_priority によって病院を3つまで絞る作業が残っており，鋭意製作中です．  
 ### online_or_visit=オンラインの場合  
 患者が希望する科 (choice_expert) が一致するという条件の基，オンライン対応している病院のみを取り出しています．
-
-## 5. 注意事項  
-### 入力と出力形式  
-#### (1) 入力形式  
-ファイル形式: csv  
-パス: コマンドライン引数 (path) で入力  
-#### (2) 出力形式  
-ファイル形式: csv  
-パス: extractdata/nd_hospitaldata.csv

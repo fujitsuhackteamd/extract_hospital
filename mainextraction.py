@@ -51,13 +51,18 @@ def mainextraction_main(csvfile, user_position, user_desiredexpert, status='offl
         # 非劣解（とインデックス）を取り出し
         nondominated_index, nondominated_solutions = ndextract_main(obj)
         # 非劣解から，ユーザーの嗜好に合わせて解を絞る
-        # priorityextraction_main(nondominated_solutions, user_priority)
+        sorted_rank, sorted_solutions = priorityextraction_main(nondominated_solutions, user_priority)
+        # 上位3つを取り出し
+        ansdata = hospitaldata[nondominated_index]
         # データフレームの保存
-        hospitaldata[nondominated_index].to_csv('extractdata/nd_hospitaldata.csv', index=False, encoding='shift-jis')
+        if len(sorted_rank) > 3:
+            ansdata.iloc[sorted_rank][:3].to_csv('extractdata/nd_hospitaldata.csv', index=False, encoding='utf-8')
+        else:
+            ansdata.to_csv('extractdata/nd_hospitaldata.csv', index=False, encoding='utf-8')
     elif status == 'online':
         onlineextraction_index, onlineextraction_solutions = onlineextraction_main(obj)
         # データフレームの保存
-        hospitaldata[onlineextraction_index].to_csv('extractdata/nd_hospitaldata.csv', index=False, encoding='shift-jis')
+        hospitaldata[onlineextraction_index].to_csv('extractdata/nd_hospitaldata.csv', index=False, encoding='utf-8')
     
 
 if __name__ == "__main__":

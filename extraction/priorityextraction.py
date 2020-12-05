@@ -13,7 +13,6 @@ def normalize(l):
     l_max = max(l)
     return [(i - l_min) / (l_max - l_min) for i in l]
 
-'''
 def nchoosek(vector, M):
     result = []
     for conb in itertools.combinations(vector, M):
@@ -22,6 +21,7 @@ def nchoosek(vector, M):
     return result
 
 def UniformPoint(N,M):
+    """
     % UniformPoint - Generate a set of uniformly distributed points on the unit hyperplane.
     %
     %   [W,N] = UniformPoint(N,M) returns approximately N uniformly distributed
@@ -33,28 +33,32 @@ def UniformPoint(N,M):
     %
     %   Example:
     %       [W,N] = UniformPoint(275,10)
+    """
 
     H1 = 1;
     while comb(H1+M, M-1, exact=True) <= N:
         H1 = H1 + 1
     W = nchoosek(list(range(1,H1+M)),M-1) - np.matlib.repmat(list(range(M-1)), comb(H1+M-1,M-1,exact=True), 1) - 1
-    W = ([W,zeros(size(W,1),1)+H1]-[zeros(size(W,1),1),W])/H1
+    W = np.squeeze(W)
+    temp1 = np.stack([W, np.zeros(W.shape[0])], 1)+H1
+    temp2 = np.stack([np.zeros(W.shape[0]),W], 1)
+    W = (temp1-temp2)/H1
     if H1 < M:
         H2 = 0;
         while nchoosek(H1+M-1,M-1)+nchoosek(H2+M,M-1) <= N:
             H2 = H2 + 1
         if H2 > 0:
             W2 = nchoosek(list(range(1,H2+M)),M-1) - np.matlib.repmat(list(range(M-1)), comb(H2+M-1,M-1,exact=True), 1) - 1
-            W2 = ([W2,zeros(size(W2,1),1)+H2]-[zeros(size(W2,1),1),W2])/H2
-            W  = [W;W2/2+1/(2*M)]
-    W = max(W,1e-6)
-    N = size(W,1)
+            temp1 = np.stack([W2,np.zeros(W2.shape[0])], 1)+H2
+            temp2 = np.stack([np.zeros(W2.shape[0]),W2], 1)
+            W2 = (temp1-temp2)/H2
+            W  = np.stack([W, W2/2+1/(2*M)], 0)
+    N = W.shape[0]
     
     return W, N
-'''
 
 def priorityextraction_main(nondominated_obj, user_priority=DEFAULT_USER_PRIORITY):
-    if len(nondominated_obj) < 3:
+    if len(nondominated_obj) <= 3:
         return nondominated_obj
     else:
         # 目的関数値の正規化
@@ -66,8 +70,17 @@ def priorityextraction_main(nondominated_obj, user_priority=DEFAULT_USER_PRIORIT
             objname = ['congestion', 'distance']
         elif user_priority == 'None':
             return nondominated_obj.sample(n=3)
-        
-
+        W, N = UniformPoint(100, 2)
+        W[:,0] = W[:,0] - 1
+        candidateW = W[50:,:]
+        rank = np.zeros(len(objvalue))
+        for i in range(len(candidateW)):
+            scalarizing_value = np.dot(objvalue, candidateW[i])
+            sort_index = np.argsort(scalarizing_value)[::-1]
+            for j in range(len(sort_index)):
+                rank[sort_index[j]] = rank[sort_index[j]] + j
+        sort_rank = np.argsort(rank)[::-1]
+        return sort_rank, nondominated_obj.iloc[sort_rank]
 
 if __name__ == "__main__":
     # テスト用データファイル
