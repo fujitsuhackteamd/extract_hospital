@@ -59,7 +59,7 @@ def UniformPoint(N,M):
 
 def priorityextraction_main(nondominated_obj, user_priority=DEFAULT_USER_PRIORITY):
     if len(nondominated_obj) <= 3:
-        return nondominated_obj
+        return list(range(len(nondominated_obj))), nondominated_obj
     else:
         # 目的関数値の正規化
         if user_priority == 'distance':
