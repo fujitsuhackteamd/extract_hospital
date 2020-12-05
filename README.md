@@ -42,6 +42,6 @@ python conduct.py address_x 200 choice_expert 耳鼻科 online_or_visit choice_p
 また，online_or_visit の値に従って取り出される病院が異なります．
 ### online_or_visit=来院の場合  
 患者が希望する科 (choice_expert) が一致するという条件の基，できるだけ距離が近い，かつ，混雑度が小さい病院を取り出しています．  
-※さらに choice_priority によって病院を3つまで絞る作業が残っており，鋭意製作中です．  
+さらに choice_priority によって病院を3つまで絞っています．  
 ### online_or_visit=オンラインの場合  
 患者が希望する科 (choice_expert) が一致するという条件の基，オンライン対応している病院のみを取り出しています．
