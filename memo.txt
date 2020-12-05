@@ -1,1 +1,0 @@
-path maindata/hospitaldata.csv address_x 100 address_y 100 choice_expert 外科 online_or_visit オンライン choice_or_priority 距離
